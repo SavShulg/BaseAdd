@@ -3,10 +3,10 @@ package com.example.Json.controller;
 import com.example.Json.model.Faculty;
 import com.example.Json.model.Student;
 import com.example.Json.service.FacultyService;
-import com.example.Json.service.StudentService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
+import java.util.List;
 
 @RestController
 @RequestMapping("/student")
@@ -38,8 +38,18 @@ public class FacultyController {
         return service.update(faculty);
     }
 
-    @GetMapping("/byCollor")
-    public Collection<Faculty> getByeColor(@RequestParam String color) {
-        return service.getByeColor(color);
+    @GetMapping("/byColorAndName")
+    public Collection<Faculty> getByeColor(@RequestParam(required = false) String color,
+                                           @RequestParam(required = false) String name) {
+        if (color == null && name == null) {
+            return service.getAll();
+        }
+            return service.getByeColorAndName(color, name);
+
+        }
+    @GetMapping("students")
+    public List<Student> getStudentFaculty(@RequestParam Long facultyId) {
+        return service.get(facultyId).getStudents();
     }
-}
+    }
+

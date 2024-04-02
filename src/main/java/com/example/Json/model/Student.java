@@ -1,5 +1,8 @@
 package com.example.Json.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.Objects;
 
 @Entity
@@ -9,6 +12,12 @@ public class Student {
     private Long id;
     private String name;
     private int age;
+
+
+    @JoinColumn(name = "faculty id")
+    @ManyToOne
+    @JsonBackReference
+    private Faculty faculty;
 
 
     public Student(Long id, String name, int age) {
@@ -39,6 +48,14 @@ public class Student {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    public Faculty getFaculty() {
+        return faculty;
+    }
+
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     @Override

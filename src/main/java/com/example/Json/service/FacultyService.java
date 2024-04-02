@@ -3,6 +3,7 @@ package com.example.Json.service;
 import com.example.Json.exceptions.RecordNotFoundException;
 import com.example.Json.model.Faculty;
 import com.example.Json.repository.FacultyRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
@@ -39,7 +40,16 @@ public class FacultyService {
 
     }
 
-    public Collection<Faculty> getByeColor(String color) {
-        return repository.findAllByColor(color);
+    public Collection<Faculty> getByeColorOrName(String color, String name) {
+
+        return repository.findAllByColorIgnorCaseOrAndNameIgnoreCase(color, name);
+    }
+
+    public Collection<Faculty> getAll() {
+        return repository.findAll();
+    }
+
+    public Collection<Faculty> getByeColorAndName(String color, String name) {
+
     }
 }
