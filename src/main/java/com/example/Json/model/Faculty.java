@@ -1,8 +1,5 @@
 package com.example.Json.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
-
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -21,7 +18,7 @@ public class Faculty {
     @OneToMany(mappedBy = "faculty")
     private List<Student> students;
 
-    public Faculty(long id, String name, String color) {
+    public Faculty(Long id, String name, String color) {
         this.id = id;
         this.name = name;
         this.color = color;
@@ -35,7 +32,7 @@ public class Faculty {
         return id;
     }
 
-    public void setId() {
+    public void setId(long l) {
         this.id = id;
     }
 
@@ -85,6 +82,10 @@ public class Faculty {
     }
 
     public Optional<Boolean> map(Object o) {
+        return null;
+    }
+
+    public Avatar orElse(Avatar avatar) {
         return null;
     }
 }

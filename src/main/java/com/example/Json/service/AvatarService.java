@@ -3,6 +3,7 @@ package com.example.Json.service;
 import com.example.Json.model.Avatar;
 import com.example.Json.repository.AvatarRepository;
 import com.example.Json.repository.StudentRepository;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -25,7 +26,7 @@ public class AvatarService {
         this.AvatarRepository = repository;
     }
 
-    public void Avatar save(Long studetntId, MultipartFile file) throws IOException {
+    public void Avatar public Object save(Long studetntId, @NotNull MultipartFile file) throws IOException {
 
 
         Files.createDirectories(avatarsDir);
@@ -40,18 +41,18 @@ public class AvatarService {
         }
 
 
-        Avatar avatar = avatarRepository.findByStudentId(studetntId).orElse(new Avatar());
+        Avatar avatar = AvatarRepository.findByStudentId(studetntId).orElse(new Avatar());
         avatar.setFileSize(file.getSize());
         avatar.setMediaType(file.getContentType());
         avatar.setData(file.getBytes());
         avatar.setStudent(studentRepository.getReferenceById(studetntId));
         avatar.setFilePath(filePath.toString());
-        return avatarRepository.save(avatar);
+        return AvatarRepository.save(avatar.getStudent());
 
     }
 
     public Avatar getById(Long id) {
-        return avatarRepository.findById(id).orElse(null);
+        return AvatarRepository.findById(id).orElse(null);
     }
 
     public com.example.Json.repository.AvatarRepository getAvatarRepository() {

@@ -23,8 +23,8 @@ public class AvatarController {
     }
 
     @PostMapping
-    public ResponseEntity<Avatar> save(@RequestParam Long studentId, @RequestBody MultipartFile file) {
-        return ResponseEntity.ofNullable(service.save(studentId, file));
+    public ResponseEntity<Avatar> save(@RequestParam Long studentId, @RequestBody MultipartFile file) throws IOException {
+        return ResponseEntity.ofNullable((Avatar) service.save(studentId, file));
     }
 
     @GetMapping("/disk/{id}")
@@ -50,5 +50,6 @@ public class AvatarController {
         headers.setContentType(MediaType.parseMediaType(avatar.getMediaType()));
         ResponseEntity.status(200).headers(headers).body(avatar.getData());
 
+        return null;
     }
 }
