@@ -116,7 +116,7 @@ class StudentControllerTestWebMvc {
                                 new Student(2L, "name2", 20));
 
 
-        mvc.perform(MockMvcRequestBuilders.get("/student/byAgeAndName?name=name1&age=age"))
+        mvc.perform(MockMvcRequestBuilders.get("/student/byAgeAndName?name=name1&age=name2"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$[0].name").value("name1"))
                 .andExpect(jsonPath("$[0].age").value(10))
