@@ -88,7 +88,7 @@ class StudentControllerTestWebMvc {
     void testAdd() throws Exception {
         when(studentRepository.save(any(Student.class))).then(invocationOnMock -> {
             Student input = invocationOnMock.getArgument(0, Student.class);
-            Student f = new Student(1L, "name1", 10, new Student(2L, "name2", 20));
+            Student f = new Student(1L, "name1", 10);
             f.setId(100L);
             f.setAge(input.getAge());
             f.setName(input.getName());
@@ -112,8 +112,7 @@ class StudentControllerTestWebMvc {
 
         when(studentRepository.findAllByAgeBetween(10,20)
                 .iterator(
-                        new Student(1L, "name1", 10,
-                                new Student(2L, "name2", 20));
+                        new Student(1L, "name1", 10);
 
 
         mvc.perform(MockMvcRequestBuilders.get("/student/byAgeAndName?name=name1&age=name2"))

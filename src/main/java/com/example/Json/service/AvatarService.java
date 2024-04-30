@@ -5,6 +5,7 @@ import com.example.Json.repository.AvatarRepository;
 import com.example.Json.repository.StudentRepository;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -12,6 +13,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardCopyOption;
+import java.util.List;
 
 @Service
 public class AvatarService {
@@ -20,13 +22,17 @@ public class AvatarService {
     private final StudentRepository studentRepository;
     private final Path avatarsDir;
 
+    public AvatarService(StudentRepository studentRepository, @Value("${avatars.dir}") Path avatarsDir) {
+        this(null, studentRepository, avatarsDir);
+    }
+
     public AvatarService(AvatarRepository repository, StudentRepository studentRepository, @Value("${avatars.dir}") Path avatarsDir) {
         this.studentRepository = studentRepository;
         this.avatarsDir = avatarsDir;
         this.AvatarRepository = repository;
     }
 
-    public void Avatar public Object save(Long studetntId, @NotNull MultipartFile file) throws IOException {
+    public Object save(Long studetntId, @NotNull MultipartFile file) throws IOException {
 
 
         Files.createDirectories(avatarsDir);
@@ -53,6 +59,10 @@ public class AvatarService {
 
     public Avatar getById(Long id) {
         return AvatarRepository.findById(id).orElse(null);
+    }
+
+    public List<Avatar> getPage(int pageNumder, int pageSize) {
+        return AvatarRepository.findAll(PageRequest.of(pageNumder, pageSize)).toList();
     }
 
     public com.example.Json.repository.AvatarRepository getAvatarRepository() {
