@@ -14,6 +14,7 @@ import java.util.Map;
 public class StudentService {
 
     private final StudentRepository repository;
+    private Object studentRepository;
 
     public StudentService(StudentRepository repository) {
         this.repository = repository;
@@ -48,5 +49,16 @@ public class StudentService {
     public Collection<Student> getAll() {
         return repository.findAll();
 
+    }
+
+    public int getStudentCount() {
+        return studentRepository.countStudents();
+    }
+    public double getAvgAge() {
+        return studentRepository.avgAge();
+    }
+
+    public Collection<Student> getLastFive() {
+        var students = studentRepository.getLastFive();
     }
 }

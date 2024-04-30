@@ -11,6 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/avatar")
@@ -51,5 +52,11 @@ public class AvatarController {
         ResponseEntity.status(200).headers(headers).body(avatar.getData());
 
         return null;
+    }
+    @GetMapping()
+    public List<Avatar> getByPage(@RequestParam("page") int page,
+                                  @RequestParam("size") int size) {
+        return avatarService.getPage(page, size);
+
     }
 }
