@@ -14,7 +14,6 @@ import java.util.Map;
 public class StudentService {
 
     private final StudentRepository repository;
-    private Object studentRepository;
 
     public StudentService(StudentRepository repository) {
         this.repository = repository;
@@ -59,6 +58,6 @@ public class StudentService {
     }
 
     public Collection<Student> getLastFive() {
-        var students = studentRepository.getLastFive();
+        return studentRepository.getLastFive();
     }
 }
